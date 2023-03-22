@@ -14,13 +14,22 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.sql.SQLOutput;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static java.lang.System.in;
 import static org.openqa.selenium.By.cssSelector;
+import static org.openqa.selenium.By.id;
 
 public class Started {
     WebDriver driver = null;
+    String nameCoursePrice[][] = {{"Rahul Shetty", "Selenium Webdriver with Java Basics + Advanced + Interview Guide", "30"}, {
+            "Rahul Shetty", "Learn SQL in Practical + Database Testing from Scratch", "25"
+    }, {
+            "Rahul Shetty", "Appium (Selenium) - Mobile Automation Testing from Scratch", "30"
+    }
+    };
 
     @Test
     public void ValidateUrl() {
@@ -80,11 +89,18 @@ public class Started {
         WebDriverManager.chromedriver().setup();
         driver = new FirefoxDriver();
         driver.get("https://rahulshettyacademy.com/AutomationPractice/");
-        List<WebElement> table = driver.findElements(By.cssSelector("body > div:nth-child(5) > div:nth-child(1) > fieldset:nth-child(1) > table:nth-child(2)"));
-        for (WebElement i : table) {
-            System.out.println(i.getText());
+        List<WebElement> rowsSize = driver.findElements(By.xpath("//div[@class='left-align']/fieldset/table[@id='product']/tbody/tr"));
+        List<WebElement> columnSize = driver.findElements(By.xpath("//div[@class='left-align']/fieldset/table[@id='product']/tbody/tr[3]/td"));
+        int idx = 2;
+        for (int x = 1; x<rowsSize.size()-7;x++) {
+            for (int i = 0; i < columnSize.size(); i++) {
+                System.out.println(driver.findElements(By.xpath("//div[@class='left-align']/fieldset/table[@id='product']/tbody/tr["+idx+"]/td")).get(i).getText());
+                System.out.println(nameCoursePrice[x-1][i]);
+                Assert.assertEquals(driver.findElements(By.xpath("//div[@class='left-align']/fieldset/table[@id='product']/tbody/tr["+idx+"]/td")).get(i).getText(), nameCoursePrice[x-1][i]);
+            }
+            idx++;
         }
-    
+        driver.close();
     }
 }
 
