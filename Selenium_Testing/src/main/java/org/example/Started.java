@@ -24,6 +24,7 @@ import static org.openqa.selenium.By.id;
 
 public class Started {
     WebDriver driver = null;
+
     String nameCoursePrice[][] = {{"Rahul Shetty", "Selenium Webdriver with Java Basics + Advanced + Interview Guide", "30"}, {
             "Rahul Shetty", "Learn SQL in Practical + Database Testing from Scratch", "25"
     }, {
@@ -86,21 +87,35 @@ public class Started {
 
     @Test
     public void getWebTable() {
-        WebDriverManager.chromedriver().setup();
+        WebDriverManager.firefoxdriver().setup();
         driver = new FirefoxDriver();
         driver.get("https://rahulshettyacademy.com/AutomationPractice/");
         List<WebElement> rowsSize = driver.findElements(By.xpath("//div[@class='left-align']/fieldset/table[@id='product']/tbody/tr"));
         List<WebElement> columnSize = driver.findElements(By.xpath("//div[@class='left-align']/fieldset/table[@id='product']/tbody/tr[3]/td"));
         int idx = 2;
-        for (int x = 1; x<rowsSize.size()-7;x++) {
+        for (int x = 1; x < rowsSize.size() - 7; x++) {
             for (int i = 0; i < columnSize.size(); i++) {
-                System.out.println(driver.findElements(By.xpath("//div[@class='left-align']/fieldset/table[@id='product']/tbody/tr["+idx+"]/td")).get(i).getText());
-                System.out.println(nameCoursePrice[x-1][i]);
-                Assert.assertEquals(driver.findElements(By.xpath("//div[@class='left-align']/fieldset/table[@id='product']/tbody/tr["+idx+"]/td")).get(i).getText(), nameCoursePrice[x-1][i]);
+                System.out.println(driver.findElements(By.xpath("//div[@class='left-align']/fieldset/table[@id='product']/tbody/tr[" + idx + "]/td")).get(i).getText());
+                System.out.println(nameCoursePrice[x - 1][i]);
+                Assert.assertEquals(driver.findElements(By.xpath("//div[@class='left-align']/fieldset/table[@id='product']/tbody/tr[" + idx + "]/td")).get(i).getText(), nameCoursePrice[x - 1][i]);
             }
             idx++;
         }
         driver.close();
+//        WebDriverManager.chromedriver().setup();
+//        driver = new FirefoxDriver();
+//        driver.get("https://rahulshettyacademy.com/AutomationPractice/");
+//        List<WebElement> cartList[] = {};
+//        String cartListElements = driver.findElements(By.ByXPath"//tbody/tr");
+//        for (int i=0;) i < cartListElements.length(); ++i) {
+
+
     }
 }
+
+
+
+
+
+
 
